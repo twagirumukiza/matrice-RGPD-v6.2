@@ -1,0 +1,126 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Espace pro — Matrice RGPD</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700;8..60,900&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"><style>
+.admin-form{margin-top:26px}
+.admin-form label{display:block;font-size:11px;color:#aebdca;margin-bottom:20px}
+.admin-form input{display:block;width:100%;margin-top:7px;padding:13px;background:#0a121c;color:#f2eee1;border:1px solid #5c7086;font-size:14px}
+.admin-form button{border:1px solid #c9a227;background:#c9a227;color:#0a121c;padding:13px 22px;font:600 10px 'JetBrains Mono',monospace;letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+.admin-form button:disabled{opacity:.55;cursor:default}
+.admin-note{font-size:11px!important;color:#71869a!important;margin-top:16px!important}
+.admin-error{color:#e8846a;font-size:12px;margin-top:14px}
+.admin-connected{display:flex;align-items:center;gap:10px;margin:22px 0;padding:16px 18px;border:1px solid rgba(201,162,39,.4);background:rgba(201,162,39,.06);font-size:13px}
+.admin-connected b{color:#c9a227}
+.admin-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.admin-actions a,.admin-actions button{display:inline-block;border:1px solid #c9a227;background:transparent;color:#c9a227;padding:13px 20px;font:600 10px 'JetBrains Mono',monospace;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;cursor:pointer}
+.admin-actions a.primary{background:#c9a227;color:#0a121c}
+body.light .admin-form input{background:#f4f0e6;color:#17202b;border-color:#b7ad9a}
+</style></head><body class="legal-page"><header class="legal-nav"><a class="logo" href="index.html"><b>TW</b><span>TWAGIRUMUKIZA</span></a><div class="legal-tools"><button id="theme">☀</button></div></header>
+
+<main class="legal-wrap"><a class="back-link" href="index.html">← Retour à la matrice</a><p class="legal-kicker">ESPACE PRO</p><h1>Connexion administrateur</h1>
+
+<section id="login-form-view" hidden>
+<p>Réservé à Innocent Twagirumukiza et aux collaborateurs autorisés. Saisissez votre adresse e-mail professionnelle : un lien de connexion à usage unique vous sera envoyé.</p>
+<form class="admin-form" id="login-form">
+<label>Adresse e-mail
+<input type="email" id="login-email" required autocomplete="email" placeholder="prenom@domaine.fr">
+</label>
+<button type="submit">Envoyer le lien de connexion</button>
+</form>
+<p class="admin-error" id="login-error" hidden></p>
+<p class="admin-note">Aucun mot de passe requis. Si votre adresse n'est pas autorisée, aucun lien ne sera utilisable.</p>
+</section>
+
+<section id="login-sent-view" hidden>
+<div class="admin-connected">✓ &nbsp;Vérifiez votre boîte mail — cliquez sur le lien reçu pour vous connecter.</div>
+<p class="admin-note">Le lien est valable une seule fois et expire après un court délai. Vous pouvez fermer cet onglet.</p>
+</section>
+
+<section id="login-connected-view" hidden>
+<div class="admin-connected">✓ &nbsp;Connecté(e) en tant que <b id="connected-email"></b></div>
+<div class="admin-actions">
+<a class="primary" href="index.html#audit">Accéder à l'audit professionnel →</a>
+<button type="button" id="logout-btn">Se déconnecter</button>
+</div>
+</section>
+
+</main>
+
+<footer class="legal-footer"><span>© 2026 Twagirumukiza</span></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script>
+(function(){
+  const cfg=window.RGPD_CONFIG;
+  const supaUrl=cfg.apiUrl.split('/functions/')[0];
+  const sb=supabase.createClient(supaUrl,cfg.publishableKey);
+  const allowedEmail=String(cfg.adminEmail||'').trim().toLowerCase();
+
+  const formView=document.getElementById('login-form-view');
+  const sentView=document.getElementById('login-sent-view');
+  const connectedView=document.getElementById('login-connected-view');
+  const errorEl=document.getElementById('login-error');
+
+  function showOnly(view){
+    [formView,sentView,connectedView].forEach(v=>v.hidden=true);
+    view.hidden=false;
+  }
+
+  async function refresh(){
+    const {data}=await sb.auth.getSession();
+    const session=data&&data.session;
+    const email=String(session?.user?.email||'').trim().toLowerCase();
+    if(session && allowedEmail && email===allowedEmail){
+      document.getElementById('connected-email').textContent=session.user.email;
+      showOnly(connectedView);
+    }else{
+      if(session && email!==allowedEmail){
+        await sb.auth.signOut();
+        errorEl.textContent='Compte non autorisé pour l’espace auditeur.';
+        errorEl.hidden=false;
+      }
+      showOnly(formView);
+    }
+  }
+
+  document.getElementById('login-form').addEventListener('submit', async function(e){
+    e.preventDefault();
+    errorEl.hidden=true;
+    const email=document.getElementById('login-email').value.trim();
+    if(!allowedEmail || email.toLowerCase()!==allowedEmail){
+      errorEl.textContent='Cette adresse n’est pas autorisée pour l’espace auditeur.';
+      errorEl.hidden=false;
+      return;
+    }
+    const btn=e.target.querySelector('button');
+    btn.disabled=true;
+    const {error}=await sb.auth.signInWithOtp({
+      email,
+      options:{emailRedirectTo:location.origin+location.pathname,shouldCreateUser:false}
+    });
+    btn.disabled=false;
+    if(error){
+      errorEl.textContent='Erreur : '+error.message;
+      errorEl.hidden=false;
+      return;
+    }
+    showOnly(sentView);
+  });
+
+  document.getElementById('logout-btn').addEventListener('click', async function(){
+    await sb.auth.signOut();
+    refresh();
+  });
+
+  sb.auth.onAuthStateChange(refresh);
+  refresh();
+})();
+
+// thème clair/sombre uniquement, sans FR/EN (page interne)
+(function(){
+  let theme=localStorage.getItem('rgpd-admin-theme')||'dark';
+  const btn=document.getElementById('theme');
+  function apply(){document.body.classList.toggle('light',theme==='light');btn.textContent=theme==='light'?'◐':'☀'}
+  btn.onclick=()=>{theme=theme==='light'?'dark':'light';localStorage.setItem('rgpd-admin-theme',theme);apply()};
+  apply();
+})();
+</script>
+</body></html>

@@ -1,0 +1,70 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,follow"><title>Merci — Matrice RGPD</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700;8..60,900&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"><style>.thanks-check{width:56px;height:56px;border:1px solid #c9a227;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#c9a227;font-size:26px;margin-bottom:22px}.thanks-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}.thanks-actions a,.thanks-actions button{display:inline-block;border:1px solid #c9a227;background:transparent;color:#c9a227;padding:13px 20px;font:600 10px 'JetBrains Mono',monospace;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;cursor:pointer}.thanks-actions a.primary,.thanks-actions button.primary{background:#c9a227;color:#0a121c}.thanks-note{font-size:12px!important;color:#71869a!important}body.light .thanks-check{color:#8a6c0c;border-color:#8a6c0c}</style></head><body class="legal-page"><header class="legal-nav"><a class="logo" href="index.html"><b>TW</b><span>TWAGIRUMUKIZA</span></a><div class="legal-tools"><button id="lang">EN</button><button id="theme">☀</button><button data-size="-1">A−</button><button data-size="0">A</button><button data-size="1">A+</button></div></header><main class="legal-wrap" data-fr><a class="back-link" href="index.html">← Retour à la matrice</a><p class="legal-kicker" id="payment-kicker-fr">VÉRIFICATION DU PAIEMENT</p><div class="thanks-check">✓</div><h1>Merci pour votre commande.</h1><section><p id="payment-status-fr">Nous vérifions la confirmation serveur de votre paiement. Cette vérification prend généralement quelques secondes.</p><p>Prochaine étape : réservez directement votre créneau d’1 heure pour l’analyse de vos résultats, ou attendez d’être recontacté(e) sous 1 à 2 jours ouvrés.</p><div class="thanks-actions"><button class="primary" data-cal-link="innocent-twagirumukiza/analyse-personnalisee" data-cal-namespace="analyse-personnalisee" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}'>Réserver mon créneau — Cal.com</button><a href="mailto:inno.twa@gmail.com?subject=Confirmation%20de%20paiement%20%E2%80%94%20Analyse%20personnalis%C3%A9e">M’envoyer un e-mail</a><a href="index.html">Retour à la matrice</a></div><p class="thanks-note">Une question sur votre commande ou besoin d’une facture ? Écrivez à <a href="mailto:inno.twa@gmail.com">inno.twa@gmail.com</a> en précisant l’e-mail utilisé lors du paiement.</p></section></main><main class="legal-wrap" data-en><a class="back-link" href="index.html">← Back to the matrix</a><p class="legal-kicker" id="payment-kicker-en">PAYMENT VERIFICATION</p><div class="thanks-check">✓</div><h1>Thank you for your order.</h1><section><p id="payment-status-en">We are checking the server-side confirmation of your payment. This normally takes only a few seconds.</p><p>Next step: book your 1-hour slot directly for the review of your results, or wait to be contacted within 1 to 2 business days.</p><div class="thanks-actions"><button class="primary" data-cal-link="innocent-twagirumukiza/analyse-personnalisee" data-cal-namespace="analyse-personnalisee" data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}'>Book my slot — Cal.com</button><a href="mailto:inno.twa@gmail.com?subject=Payment%20confirmation%20%E2%80%94%20Personalised%20analysis">Email me</a><a href="index.html">Back to the matrix</a></div><p class="thanks-note">Question about your order or need an invoice? Write to <a href="mailto:inno.twa@gmail.com">inno.twa@gmail.com</a> and mention the email used at checkout.</p></section></main><footer class="legal-footer"><span>© 2026 Twagirumukiza</span><nav><a href="mentions-legales.html" data-fr>Mentions légales</a><a href="mentions-legales.html" data-en>Legal notice</a><a href="confidentialite.html" data-fr>Politique de confidentialité</a><a href="confidentialite.html" data-en>Privacy policy</a></nav></footer><script type="text/javascript">
+  (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+  Cal("init", "analyse-personnalisee", {origin:"https://app.cal.com"});
+  Cal.config = Cal.config || {};
+  Cal.config.forwardQueryParams = true;
+  Cal.ns["analyse-personnalisee"]("ui", {"hideEventTypeDetails":false,"layout":"month_view"});
+</script>
+
+<script src="config.js"></script>
+<script src="api.js"></script>
+<script>
+(function(){
+  const params=new URLSearchParams(location.search);
+  const sessionId=params.get('session_id')||'';
+  const fr=document.getElementById('payment-status-fr');
+  const en=document.getElementById('payment-status-en');
+  const kfr=document.getElementById('payment-kicker-fr');
+  const ken=document.getElementById('payment-kicker-en');
+
+  function setStatus(kind){
+    if(kind==='paid'){
+      kfr.textContent='PAIEMENT CONFIRMÉ';
+      ken.textContent='PAYMENT CONFIRMED';
+      fr.textContent='Votre paiement a été confirmé par Stripe et enregistré côté serveur dans Supabase. Vous pouvez maintenant réserver votre créneau.';
+      en.textContent='Your payment has been confirmed by Stripe and recorded server-side in Supabase. You can now book your appointment.';
+    }else if(kind==='failed'){
+      kfr.textContent='PAIEMENT NON CONFIRMÉ';
+      ken.textContent='PAYMENT NOT CONFIRMED';
+      fr.textContent='Le paiement n’a pas été confirmé. Aucun paiement validé n’est enregistré côté serveur. Vous pouvez réessayer depuis la matrice ou nous contacter.';
+      en.textContent='The payment was not confirmed. No validated payment is recorded server-side. You can try again from the matrix or contact us.';
+    }else{
+      kfr.textContent='CONFIRMATION EN COURS';
+      ken.textContent='CONFIRMATION PENDING';
+      fr.textContent='Stripe a redirigé votre navigateur vers cette page, mais la confirmation serveur est encore en cours. Elle est généralement reçue en quelques secondes.';
+      en.textContent='Stripe redirected your browser to this page, but server-side confirmation is still pending. It is normally received within a few seconds.';
+    }
+  }
+
+  if(!sessionId || !window.RGPD_API?.getPaymentStatus){
+    setStatus('pending');
+    return;
+  }
+
+  let attempts=0;
+  const maxAttempts=6;
+  async function verify(){
+    attempts++;
+    try{
+      const result=await window.RGPD_API.getPaymentStatus(sessionId);
+      const status=String(result?.paymentStatus||'pending');
+      if(result?.found && (status==='paid'||status==='no_payment_required')){
+        setStatus('paid');
+        localStorage.removeItem('rgpd-pending-stripe-tier');
+        localStorage.removeItem('rgpd-pending-stripe-reference');
+        return;
+      }
+      if(status==='failed'||status==='expired'||status==='unpaid'){
+        setStatus('failed');
+        return;
+      }
+    }catch(error){
+      console.warn('Vérification du paiement indisponible :',error);
+    }
+    setStatus('pending');
+    if(attempts<maxAttempts)setTimeout(verify,1500);
+  }
+  verify();
+})();
+</script>
+<script src="legal.js"></script></body></html>
