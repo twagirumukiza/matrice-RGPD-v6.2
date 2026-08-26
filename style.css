@@ -11,19 +11,7 @@ body.light{--ink:#17202b;--paper:#f4f0e6;--line:#d8ceb9;--muted:#516273;backgrou
 @media(max-width:760px){.utility-tools{gap:4px}.font-tools button{min-width:34px;padding:0 5px}.landing nav>.tag{display:none}.app header{height:auto;min-height:72px;flex-wrap:wrap;padding:10px 14px}.app header>div:not(.logo):not(.utility-tools){order:3;width:100%;margin-top:7px}.app header .utility-tools{margin-left:auto}.utility-tools>button{min-width:40px}}
 
 /* V4 — pages légales */.legal-footer{max-width:1120px;margin:34px auto 0;padding:24px 28px;border-top:1px solid rgba(140,160,179,.22);display:flex;justify-content:space-between;gap:20px;color:#8ca0b3;font:500 10px 'JetBrains Mono',monospace}.legal-footer nav{display:flex;gap:18px}.legal-footer a{color:#c9a227;text-decoration:none}.legal-page{min-height:100vh;background:#0a121c}.legal-nav{height:78px;padding:0 max(28px,calc((100vw - 1120px)/2));display:flex;align-items:center;border-bottom:1px solid rgba(140,160,179,.2);background:rgba(10,18,28,.9);position:sticky;top:0;z-index:5}.legal-tools{display:flex;gap:6px;margin-left:auto}.legal-tools button{height:38px;min-width:40px;border:1px solid #5c7086;background:transparent;color:#8ca0b3;font:600 10px 'JetBrains Mono',monospace}.legal-wrap{max-width:850px;margin:0 auto;padding:70px 28px}.legal-wrap .back-link{color:#8ca0b3;text-decoration:none;font:500 10px 'JetBrains Mono',monospace}.legal-kicker{margin:70px 0 12px;color:#c9a227;font:600 10px 'JetBrains Mono',monospace;letter-spacing:.17em}.legal-wrap h1{font:700 clamp(40px,6vw,66px)/1.05 'Source Serif 4',serif;margin:0 0 12px}.updated{color:#5c7086;font:500 10px 'JetBrains Mono',monospace}.legal-wrap section{padding:30px 0;border-bottom:1px solid rgba(140,160,179,.18)}.legal-wrap h2{font:600 24px 'Source Serif 4',serif;margin:0 0 12px}.legal-wrap p{font-size:15px;line-height:1.75;color:#aebdca}.legal-wrap a{color:#c9a227}.legal-wrap mark{background:rgba(166,57,43,.18);color:#e19083;padding:2px 5px}.legal-alert{margin:34px 0 8px;padding:18px 20px;border-left:3px solid #a6392b;background:rgba(166,57,43,.1)}.legal-alert strong{color:#f2eee1}.legal-alert p{margin:7px 0 0;font-size:13px}.legal-page.light,.legal-page.light .legal-nav{background:#f4f0e6}.legal-page.light .legal-nav{border-color:#d8ceb9}.legal-page.light .legal-wrap h1,.legal-page.light .legal-wrap h2,.legal-page.light .logo,.legal-page.light .legal-alert strong{color:#17202b}.legal-page.light .legal-wrap p{color:#455565}.legal-page.light .legal-alert{background:#fff}.legal-page.light .legal-footer{border-color:#d8ceb9;color:#516273}@media(max-width:700px){.legal-footer{flex-direction:column}.legal-footer nav{flex-wrap:wrap}.legal-nav{padding:0 15px}.legal-tools{gap:3px}.legal-tools button{min-width:34px;padding:0 6px}.legal-wrap{padding:45px 20px}.legal-kicker{margin-top:45px}}@media print{.legal-nav,.legal-footer,.legal-alert{display:none}.legal-wrap{padding:0}.legal-wrap p{color:#222}.legal-wrap h1,.legal-wrap h2{color:#111}}
-.banner-container {
-    width: 100%;
-    max-width: 100%;
-    text-align: center;
-}
 
-.rgpd-banner-img {
-    width: 100%;
-    height: auto;
-    display: block;
-    max-height: 200px; /* Ajustez selon vos besoins */
-    object-fit: cover;
-}
 /* V5.2 — rapport RGPD détaillé */
 .print-report{display:none}
 @media print{
