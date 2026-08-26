@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-NGKN2DPZ');</script>
+<!-- End Google Tag Manager -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta
+    name="description"
+    content="Diagnostic, auto-évaluation et accompagnement à la conformité RGPD"
+  >
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700;8..60,900&display=swap"
+    rel="stylesheet"
+  >
+
+  <title>Diagnostic et conformité RGPD — Twagirumukiza</title>
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="commercial.css">
+  <link rel="stylesheet" href="pricing.css">
+</head>
+
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NGKN2DPZ"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+  <div id="root"></div>
+
+
+
+  <!-- Configuration publique Supabase -->
+  <script src="config.js"></script>
+
+  <!-- Connexion à l’Edge Function rgpd-api -->
+  <script src="api.js"></script>
+  
+  <!-- enregistrer automatiquement les formulaires dans Supabase. -->
+  <script src="integration.js"></script>
+
+  <!-- Cal.com — element-click embed (bouton "Réserver directement") -->
+  <script type="text/javascript">
+    (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+    Cal("init", "analyse-personnalisee", {origin:"https://app.cal.com"});
+    Cal.config = Cal.config || {};
+    Cal.config.forwardQueryParams = true;
+    Cal.ns["analyse-personnalisee"]("ui", {"hideEventTypeDetails":false,"layout":"month_view"});
+  </script>
+
+  <!-- Authentification Supabase (accès privé Audit professionnel) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- Moteur principal de la matrice -->
+  <script src="app.js"></script>
+
+  <!-- Visuel "accompagnement humain" inséré au-dessus de la grille tarifaire -->
+  <script>
+    (function () {
+      var IMG_SRC = "meeting-twagirumukiza.png";
+      var IMG_ALT = "Consultant échangeant avec des clients autour d'un diagnostic RGPD";
+
+      function insertHeroMedia() {
+        if (document.querySelector(".hero-media")) return true; // déjà inséré
+        var target = document.querySelector(".modeGrid");
+        if (!target) return false;
+
+        var figure = document.createElement("figure");
+        figure.className = "hero-media";
+        figure.innerHTML =
+          '<img src="' + IMG_SRC + '" alt="' + IMG_ALT + '" loading="lazy">';
+
+        target.parentNode.insertBefore(figure, target);
+        return true;
+      }
+
+      // Le contenu de #root est rendu par app.js : on retente jusqu'à
+      // ce que .modeGrid existe, puis on arrête d'observer.
+      if (insertHeroMedia()) return;
+
+      var root = document.getElementById("root");
+      if (!root) return;
+
+      var observer = new MutationObserver(function () {
+        if (insertHeroMedia()) observer.disconnect();
+      });
+      observer.observe(root, { childList: true, subtree: true });
+    })();
+  </script>
+</body>
+</html>
